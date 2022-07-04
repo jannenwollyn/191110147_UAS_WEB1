@@ -1,4 +1,26 @@
-<hello name="{{ name }}"></hello>
-<p>
-  Start editing to see some magic happen :)
-</p>
+<div [formGroup]="login_form">
+	<div class="col-md-12">
+		<div class="form-group">
+			<label>Email / Phone :</label>
+			<input type="text" class="form-control" formControlName="email">
+			<span class="text-danger" *ngIf="login_form.controls['email'].hasError('required') && (login_form.controls['email'].dirty || login_form.controls['email'].touched)">This field is required</span>
+			<span class="text-danger" *ngIf="login_form.controls['email'].hasError('pattern') && (login_form.controls['email'].dirty || login_form.controls['email'].touched)">Please enter valid email address or phone number</span>
+		</div>
+		<div class="form-group">
+			<label>Password :</label>
+			<input type="text" class="form-control" formControlName="password">
+			<span class="text-danger" *ngIf="login_form.controls['password'].hasError('required') && (login_form.controls['password'].dirty || login_form.controls['password'].touched)">This field is required</span>
+		</div>
+		<div class="form-group">
+			<label class="checkbox-inline">
+      <input type="checkbox" formControlName="terms" 
+      [disableControl]="!login_form.valid ? false : true">Disable using directive      
+    </label>
+		</div>		
+	</div>
+</div>
+<div class="col-md-12">
+<button type="submit" class="btn btn-primary"
+ (click)="submitForm()">Submit</button>
+</div>
+<br> {{ login_form.getRawValue() | json }}
